@@ -1,19 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/common/common.dart';
-import 'package:twitter_clone/constants/ui_constants.dart';
-import 'package:twitter_clone/features/auth/view/signup_view.dart';
-import 'package:twitter_clone/features/auth/widgets/auth_text_field.dart';
-import 'package:twitter_clone/theme/pallete.dart';
+import 'package:twitter_clone/features/auth/view/login_view.dart';
 
-class loginView extends StatefulWidget {
-  const loginView({super.key});
+import '../../../common/common.dart';
+import '../../../constants/constants.dart';
+import '../../../theme/theme.dart';
+import '../widgets/auth_text_field.dart';
+
+class Signupview extends StatefulWidget {
+  const Signupview({super.key});
 
   @override
-  State<loginView> createState() => _loginViewState();
+  State<Signupview> createState() => _SignupviewState();
 }
 
-class _loginViewState extends State<loginView> {
+class _SignupviewState extends State<Signupview> {
   final appbar = UIconstants.appbar();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -60,13 +61,13 @@ class _loginViewState extends State<loginView> {
               ),
               RichText(
                 text: TextSpan(
-                    text: "Don't have an account?",
+                    text: "Already have an account?",
                     style: const TextStyle(
                       fontSize: 16,
                     ),
                     children: [
                       TextSpan(
-                        text: ' Sign Up',
+                        text: ' Log In',
                         style: const TextStyle(
                           color: Pallete.blueColor,
                           fontSize: 16,
@@ -75,7 +76,7 @@ class _loginViewState extends State<loginView> {
                           ..onTap = () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const Signupview(),
+                              builder: (context) => const loginView(),
                             ));
                           },
                       )
