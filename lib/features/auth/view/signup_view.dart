@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twitter_clone/common/loading_indicator.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/auth/view/login_view.dart';
 
@@ -29,6 +30,7 @@ class _SignupviewState extends ConsumerState<Signupview> {
   }
 
   void onSignUp() {
+    FocusScope.of(context).unfocus();
     ref.read(authControllerProvider.notifier).signUP(
         email: emailController.text,
         password: passwordController.text,
@@ -37,64 +39,67 @@ class _SignupviewState extends ConsumerState<Signupview> {
 
   @override
   Widget build(BuildContext context) {
+    final isloading = ref.watch(authControllerProvider);
     return Scaffold(
       appBar: appbar,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(children: [
-              AuthTextField(
-                controller: emailController,
-                hintText: 'Email',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              AuthTextField(
-                controller: passwordController,
-                hintText: 'Password',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: RoundedSmallButton(
-                  onTap: onSignUp,
-                  label: 'SignUp',
+      body: isloading
+          ? const loadingPage()
+          : Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(children: [
+                    AuthTextField(
+                      controller: emailController,
+                      hintText: 'Email',
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    AuthTextField(
+                      controller: passwordController,
+                      hintText: 'Password',
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: RoundedSmallButton(
+                        onTap: onSignUp,
+                        label: 'SignUp',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                          text: "Already have an account?",
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: ' Log In',
+                              style: const TextStyle(
+                                color: Pallete.blueColor,
+                                fontSize: 16,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => const loginView(),
+                                  ));
+                                },
+                            )
+                          ]),
+                    )
+                  ]),
                 ),
               ),
-              const SizedBox(
-                height: 25,
-              ),
-              RichText(
-                text: TextSpan(
-                    text: "Already have an account?",
-                    style: const TextStyle(
-                      fontSize: 16,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: ' Log In',
-                        style: const TextStyle(
-                          color: Pallete.blueColor,
-                          fontSize: 16,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                              builder: (context) => const loginView(),
-                            ));
-                          },
-                      )
-                    ]),
-              )
-            ]),
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

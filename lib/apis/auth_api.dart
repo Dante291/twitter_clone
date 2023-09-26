@@ -12,6 +12,8 @@ final authAPIprovider = Provider((ref) {
 
 abstract class iauthAPI {
   FutureEither<User> signUp({required String email, required String password});
+  FutureEither<Session> logIn(
+      {required String email, required String password});
 }
 
 class AuthAPI implements iauthAPI {
@@ -25,6 +27,20 @@ class AuthAPI implements iauthAPI {
       final account = await _account.create(
           userId: 'unique()', email: email, password: password);
       return right(account);
+    } on AppwriteException catch (e, stackTrace) {
+      return left(Failure(e.message!, stackTrace));
+    } catch (e, stackTrace) {
+      return left(Failure(e.toString(), stackTrace));
+    }
+  }
+
+  @override
+  FutureEither<Session> logIn(
+      {required String email, required String password}) async {
+    try {
+      final session =
+          await _account.createEmailSession(email: email, password: password);
+      return right(session);
     } on AppwriteException catch (e, stackTrace) {
       return left(Failure(e.message!, stackTrace));
     } catch (e, stackTrace) {
