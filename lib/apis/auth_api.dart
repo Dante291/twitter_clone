@@ -14,12 +14,25 @@ abstract class iauthAPI {
   FutureEither<User> signUp({required String email, required String password});
   FutureEither<Session> logIn(
       {required String email, required String password});
+  Future<User?> cuurentuserAccount();
 }
 
 class AuthAPI implements iauthAPI {
   final Account _account;
 
   AuthAPI({required Account account}) : _account = account;
+
+  @override
+  Future<User?> cuurentuserAccount() async {
+    try {
+      return await _account.get();
+    } on AppwriteException catch (e) {
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   FutureEither<User> signUp(
       {required String email, required String password}) async {
