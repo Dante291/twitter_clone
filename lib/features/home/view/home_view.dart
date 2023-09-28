@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone/constants/constants.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    final appbar = UIconstants.appbar();
+    return Scaffold(
+      appBar: appbar,
+    );
   }
 }
