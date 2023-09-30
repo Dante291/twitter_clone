@@ -20,9 +20,9 @@ class MyApp extends ConsumerWidget {
         theme: AppTheme.theme,
         home: ref.watch(currentuseraccountProvider).when(
               data: (data) {
-                // if (data != null) {
-                //   return const HomeView();
-                // }
+                if (data != null) {
+                  return const HomeView();
+                }
                 return const loginView();
               },
               error: (error, stackTrace) {
