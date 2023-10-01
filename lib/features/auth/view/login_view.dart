@@ -7,7 +7,6 @@ import 'package:twitter_clone/features/auth/view/signup_view.dart';
 import 'package:twitter_clone/features/auth/widgets/auth_text_field.dart';
 import 'package:twitter_clone/theme/pallete.dart';
 
-import '../../../common/loading_indicator.dart';
 import '../controller/auth_controller.dart';
 
 class loginView extends ConsumerStatefulWidget {

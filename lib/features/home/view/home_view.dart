@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/tweet/create_tweet_view.dart';
 import 'package:twitter_clone/theme/theme.dart';
 
 class HomeView extends StatefulWidget {
@@ -28,7 +29,11 @@ class _HomeViewState extends State<HomeView> {
         children: UIconstants.bottomTabbarPages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const CreateTweetScreen(),
+          ));
+        },
         child: const Icon(
           Icons.add,
           size: 28,
