@@ -2,15 +2,23 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:twitter_clone/apis/tweet_api.dart';
 import 'package:twitter_clone/core/enums/tweet_type_enum.dart';
 import 'package:twitter_clone/core/utils.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
 
+final TweetControllerProvider =
+    StateNotifierProvider<TweeetController, bool>((ref) {
+  return TweeetController(ref: ref, tweetapi: ref.watch(tweetApiProvider));
+});
+
 class TweeetController extends StateNotifier<bool> {
+  final TweetAPI _tweetApi;
   final Ref _ref;
-  TweeetController({required Ref ref})
+  TweeetController({required Ref ref, required TweetAPI tweetapi})
       : _ref = ref,
+        _tweetApi = tweetapi,
         super(false);
 
   void _shareimageTweet(
@@ -21,7 +29,8 @@ class TweeetController extends StateNotifier<bool> {
   void _shareTextTweet({
     required String text,
     required BuildContext context,
-  }) {
+  }) async {
+    state = true;
     final hashtags = _getHashtagsFromText(text);
     String link = _getLinkFromText(text);
     final user = _ref.read(currentUserDetailsProvider).value!;
@@ -39,6 +48,9 @@ class TweeetController extends StateNotifier<bool> {
         reshareCount: 0,
         retweetedBy: '',
         repliedTo: '');
+    final res = await _tweetApi.shareTweet(tweet);
+    state = false;
+    res.fold((l) => showsnackbar(context, l.message), (r) => null);
   }
 
   void shareTweet(
