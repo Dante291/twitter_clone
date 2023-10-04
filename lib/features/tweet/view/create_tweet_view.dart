@@ -22,8 +22,8 @@ class CreateTweetScreen extends ConsumerStatefulWidget {
 class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
   final tweetTextController = TextEditingController();
   int _currentImageIndex = 0;
-
   List<File> images = [];
+
   @override
   void dispose() {
     super.dispose();
