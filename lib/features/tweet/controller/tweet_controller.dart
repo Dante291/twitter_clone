@@ -34,6 +34,7 @@ class TweeetController extends StateNotifier<bool> {
         _tweetApi = tweetapi,
         _storageAPI = storageAPi,
         super(false);
+
   Future<List<Tweet>> getTweets() async {
     final tweetlist = await _tweetApi.getTweeet();
     return tweetlist.map((tweet) => Tweet.fromMap(tweet.data)).toList();
