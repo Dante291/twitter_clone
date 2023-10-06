@@ -38,6 +38,8 @@ class HashtagText extends StatelessWidget {
         );
       }
     });
-    return RichText(text: TextSpan(children: textspan));
+    return Container(
+        margin: const EdgeInsets.only(right: 8),
+        child: RichText(text: TextSpan(children: textspan)));
   }
 }

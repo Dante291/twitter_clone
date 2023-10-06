@@ -112,7 +112,7 @@ class TweeetController extends StateNotifier<bool> {
 
   String _getLinkFromText(String text) {
     String link = '';
-    List<String> wordsInSentence = text.split(' ');
+    List<String> wordsInSentence = text.split(RegExp(r' |\n'));
     for (String word in wordsInSentence) {
       if (word.startsWith('https://') || word.startsWith('www.')) {
         link = word;
