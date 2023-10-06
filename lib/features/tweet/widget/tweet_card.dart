@@ -137,7 +137,7 @@ class TweetCard extends ConsumerWidget {
             ],
           );
         },
-        error: (error, stackTrace) {
+        error: (error, st) {
           return errorText(error: error.toString());
         },
         loading: () => const loader());
