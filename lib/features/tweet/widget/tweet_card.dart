@@ -46,7 +46,7 @@ class TweetCard extends ConsumerWidget {
                                 children: [
                                   Container(
                                     margin: const EdgeInsets.only(
-                                        top: 8, bottom: 4),
+                                        top: 6, bottom: 4),
                                     child: Text(
                                       user.name,
                                       style: const TextStyle(

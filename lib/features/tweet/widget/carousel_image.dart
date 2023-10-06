@@ -26,12 +26,12 @@ class _CarouselImageState extends State<CarouselImage> {
                   margin: const EdgeInsets.only(top: 10, right: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(25),
-                    child: Image.network(link, fit: BoxFit.cover),
+                    child: Image.network(link, fit: BoxFit.contain),
                   ),
                 );
               }).toList(),
               options: CarouselOptions(
-                  height: 400,
+                  height: 300,
                   viewportFraction: 1,
                   enableInfiniteScroll: false,
                   onPageChanged: (index, reason) {
