@@ -1,3 +1,4 @@
+import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:twitter_clone/core/enums/tweet_type_enum.dart';
@@ -61,7 +62,10 @@ class TweetCard extends ConsumerWidget {
                         //replied to
                         HashtagText(text: _tweet.text),
                         if (_tweet.tweetType == TweetType.image)
-                          CarouselImage(imagelinks: _tweet.imageLinks)
+                          CarouselImage(imagelinks: _tweet.imageLinks),
+                        if (_tweet.link.isNotEmpty) ...[
+                          AnyLinkPreview(link: 'https://${_tweet.link}')
+                        ]
                       ],
                     ),
                   )
